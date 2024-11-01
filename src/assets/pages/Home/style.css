@@ -1,0 +1,116 @@
+body {
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.home-section {
+    padding: 50px 0;
+}
+
+.section-title {
+    font-size: 30px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #9f904d;
+}
+
+.map-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #9f904d;
+}
+.info-block {
+    margin-bottom: 20px;
+}
+
+.info-block h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9f904d;
+}
+
+.info-block p {
+    font-size: 16px;
+    color: #5f5619;
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 24px;
+    }
+
+    .info-block {
+        margin-bottom: 30px;
+    }
+
+    iframe {
+        height: 300px;
+    }
+}
+
+/* Garantir que todos os cards tenham uma altura menor */
+.card {
+    margin: 10px; /* Margem entre os cards */
+    border: 2px solid #007bff; /* Borda azul */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    height: 250px; /* Altura ajustada para os cards */
+    width: 180px; /* Largura fixa para os cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px; /* Borda levemente arredondada */
+    overflow: hidden; /* Para evitar que o conteúdo exceda os limites do card */
+}
+
+/* Deixar o card com efeito hover */
+.card:hover {
+    transform: scale(1.05);
+    border-color: #28a745; /* Altera a cor da borda ao passar o mouse (verde) */
+}
+
+/* Diminuir o tamanho da imagem dentro do card */
+.card-img-top {
+    height: 120px; /* Altura da imagem */
+    object-fit: cover; /* Mantém a proporção da imagem */
+    width: 100%; /* A largura da imagem ocupa 100% do card */
+}
+
+/* Garantir que os títulos e textos se ajustem */
+.card-title {
+    font-size: 1rem; /* Tamanho da fonte do título */
+    font-weight: bold;
+    margin: 5px 0; /* Margem entre o título e o texto */
+    text-align: center;
+}
+
+.card-text {
+    font-size: 0.9rem; /* Tamanho da fonte do texto */
+    text-align: center;
+    white-space: nowrap; /* Não quebra linha */
+    overflow: hidden; /* Oculta o texto que excede o limite */
+    text-overflow: ellipsis; /* Adiciona reticências ao texto que não cabe */
+}
+
+/* Ajustar o corpo do card */
+.card-body {
+    flex: 1;
+    padding: 10px; /* Menos padding para deixar o conteúdo mais compacto */
+    text-align: center;
+}
