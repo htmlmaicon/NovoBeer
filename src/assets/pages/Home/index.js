@@ -26,7 +26,7 @@ function Home() {
         fetchApi();
     }, []);
 
-    // Função para agrupar os itens em lotes de três
+    // Função para agrupar os itens em lotes de seis
     const groupData = (data, size) => {
         let groupedData = [];
         for (let i = 0; i < data.length; i += size) {
@@ -43,11 +43,11 @@ function Home() {
                     <p>Carregando...</p>
                 ) : (
                     <Carousel>
-                        {groupData(data, 3).map((group, index) => (
+                        {groupData(data, 6).map((group, index) => (
                             <Carousel.Item key={index}>
                                 <div className="row">
                                     {group.map((item) => (
-                                        <div key={item.id} className="col-md-4">
+                                        <div key={item.id} className="col-md-2">
                                             <div className="card">
                                                 <img
                                                     src={item.thumbnail}

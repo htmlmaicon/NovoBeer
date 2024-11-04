@@ -14,7 +14,7 @@
 }
 
 .button-cart {
-    background-color: #007bff;
+    background-color: #9f904d;
     color: white;
     padding: 10px 20px;
     text-decoration: none;
@@ -23,7 +23,7 @@
 }
 
 .button-cart:hover {
-    background-color: #0056b3;
+    background-color: #9f904d;
 }
 
 .store-items {
@@ -63,7 +63,7 @@
 }
 
 .store-item button {
-    background-color: #28a745;
+    background-color: #9f904d;
     border: none;
     color: white;
     padding: 10px 15px;
@@ -79,7 +79,7 @@
 }
 
 .store-item button:hover {
-    background-color: #218838;
+    background-color: #9f904d;
 }
 
 .store-item button svg {
