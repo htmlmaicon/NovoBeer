@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getItem, setItem } from '../../services/local';
 import { BsCartDash } from "react-icons/bs";
 import "./stylle.css";
+import Voltar from '../../componsts/voltar/index.js';
 
 const Carrinho = () => {
     const [data, setData] = useState(getItem('carrinhoYT') || []);
@@ -14,6 +15,7 @@ const Carrinho = () => {
 
     return (
         <div>
+            <Voltar></Voltar>
             <h1>Carrinho</h1>
             <div className='produto-container'>
                 {data.map((e) => (
