@@ -62,7 +62,7 @@ const Store = () => {
                                 ) : (
                                     <BsCartPlusFill />
                                 )}
-                            </button>
+                            </button> 
                         </div>
                     ))}
                 </div>

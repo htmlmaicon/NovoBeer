@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     background-color: #ffffff;
     font-family: 'Arial', sans-serif;
@@ -15,6 +16,7 @@ body {
     color: #9f904d;
 }
 
+/* Map Section */
 .map-container {
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -22,6 +24,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Info Blocks */
 .info-container {
     padding: 20px;
     background-color: #fff;
@@ -35,6 +38,7 @@ body {
     margin-bottom: 20px;
     color: #9f904d;
 }
+
 .info-block {
     margin-bottom: 20px;
 }
@@ -50,14 +54,14 @@ body {
     color: #5f5619;
 }
 
-/* Card styling */
+/* Card Styles */
 .card {
     margin: 10px;
     border: 2px solid #9f904d;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
-    height: 250px; /* Altura reduzida */
-    width: 185px; 
+    height: 250px;
+    width: 185px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -97,16 +101,8 @@ body {
     text-align: center;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
     .section-title {
-        font-size: 24px;
-    }
-
-    .info-block {
-        margin-bottom: 30px;
-    }
-
-    iframe {
-        height: 300px;
-    }
-}
+        font-size: 24
+    }}

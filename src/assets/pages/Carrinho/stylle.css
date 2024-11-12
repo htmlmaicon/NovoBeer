@@ -64,3 +64,34 @@
 .produto button svg {
     margin-right: 5px; /* Space between icon and text */
 }
+
+.store-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    position: relative; /* Permitir posicionamento absoluto do botão dentro do card */
+}
+
+.buy-button {
+    display: inline-block;
+    padding: 6px 12px; /* Botão menor */
+    background-color: #0fb430; /* Cor laranja do Mercado Livre */
+    color: white;
+    font-size: 14px; /* Tamanho da fonte menor */
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    position: absolute; /* Fixa o botão dentro do card */
+    bottom: 10px; /* Distância do fundo do card */
+    left: 10px; /* Distância da borda esquerda do card */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombras para o botão */
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #0fb430; /* Escurece a cor ao passar o mouse */
+}
