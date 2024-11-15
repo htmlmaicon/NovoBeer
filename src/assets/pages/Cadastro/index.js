@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth, createUserWithEmailAndPassword } from '../../services/firebaseconnection';
+
 import '../../pages/Cadastro/style.css';
 
 function Cadastro() {
@@ -7,25 +9,28 @@ function Cadastro() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Valida se as senhas coincidem
+        if (password !== confirmPassword) {
+            setMessage('As senhas não coincidem.');
+            return;
+        }
+
         try {
-            const response = await fetch('http://localhost:8080/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password, confirmpassword: confirmPassword })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                alert(data.msg);
-                navigate('/login');
-            } else {
-                alert(data.msg);
-            }
+            // Cadastra o usuário no Firebase
+            await createUserWithEmailAndPassword(auth, email, password);
+            setMessage('Usuário cadastrado com sucesso!');
+            setTimeout(() => {
+                setMessage('');
+                navigate('/login'); // Redireciona para a tela de login após o cadastro
+            }, 2000);
         } catch (error) {
-            console.error('Erro ao cadastrar:', error);
+            setMessage('Erro ao cadastrar usuário: ' + error.message);
         }
     };
 
@@ -36,23 +41,48 @@ function Cadastro() {
                     <h2>CADASTRE-SE</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="input-box">
-                            <input type="text" required placeholder=" " value={name} onChange={(e) => setName(e.target.value)} />
+                            <input
+                                type="text"
+                                required
+                                placeholder=" "
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
                             <label>NOME</label>
                         </div>
                         <div className="input-box">
-                            <input type="email" required placeholder=" " value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input
+                                type="email"
+                                required
+                                placeholder=" "
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                             <label>EMAIL</label>
                         </div>
                         <div className="input-box">
-                            <input type="password" required placeholder=" " value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                required
+                                placeholder=" "
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                             <label>SENHA</label>
                         </div>
                         <div className="input-box">
-                            <input type="password" required placeholder=" " value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                required
+                                placeholder=" "
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
                             <label>REPETIR SENHA</label>
                         </div>
                         <button type="submit" className="btn">Cadastrar</button>
                     </form>
+                    {message && <p className="message">{message}</p>}
                 </div>
             </div>
         </div>

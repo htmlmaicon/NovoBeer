@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './style.css';  
-import logo from '../../imagens/Beer Mapper.svg';
+
 
 function Voltar() {
     return (
-        <Link to="/">
+        <Link to="/Home">
             <button className="voltar-button">
                 Voltar
             </button>

@@ -1,30 +1,41 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from '../../services/firebaseconnection';
 import '../../pages/Login/style.css';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+
         try {
-            const response = await fetch('http://localhost:8080/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await response.json();
-            if (response.ok) {
-                alert(data.msg);
-                localStorage.setItem('token', data.token); // Armazena o token
-                navigate('/'); // Redireciona para a página inicial (home)
-            } else {
-                alert(data.msg);
-            }
+            await signInWithEmailAndPassword(auth, email, password);
+            setMessage('Usuário logado com sucesso!');
+            setTimeout(() => {
+                setMessage('');
+                navigate('/Home');
+            }, 2000);
         } catch (error) {
-            console.error('Erro ao fazer login:', error);
+            setMessage('Erro ao logar: ' + error.message);
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        const provider = new GoogleAuthProvider();
+
+        try {
+            await signInWithPopup(auth, provider);
+            setMessage('Login com Google realizado com sucesso!');
+            setTimeout(() => {
+                setMessage('');
+                navigate('/Home');
+            }, 2000);
+        } catch (error) {
+            setMessage('Erro ao logar com Google: ' + error.message);
         }
     };
 
@@ -33,9 +44,8 @@ function Login() {
             <div className="wrapper">
                 <div className="form-box login">
                     <h2>LOGIN</h2>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleLogin}>
                         <div className="input-box">
-                            <span className="icon"></span>
                             <input
                                 type="email"
                                 required
@@ -43,10 +53,9 @@ function Login() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <label>E-MAIL</label>
+                            <label>EMAIL</label>
                         </div>
                         <div className="input-box">
-                            <span className="icon"></span>
                             <input
                                 type="password"
                                 required
@@ -56,17 +65,18 @@ function Login() {
                             />
                             <label>SENHA</label>
                         </div>
-                        <div className="remember-forgot">
-                            <label>
-                                <input type="checkbox" /> Relembre-me
-                            </label>
-                            <a href="#">Esqueceu a senha?</a>
-                        </div>
                         <button type="submit" className="btn">LOGIN</button>
-                        <div className="login-register">
-                            <p>Não está cadastrado? <Link to="/cadastro" className="nav-link nav-link-custom">Cadastrar-se</Link></p>
-                        </div>
                     </form>
+
+                    <div className="google-login">
+                        <button onClick={handleGoogleLogin} className="btn-google">Login com Google</button>
+                    </div>
+
+                    {message && <p className="message">{message}</p>}
+
+                    <div className="login-register">
+                        <p>Não está cadastrado? <Link to="/cadastro" className="nav-link nav-link-custom">Cadastrar-se</Link></p>
+                    </div>
                 </div>
             </div>
         </div>

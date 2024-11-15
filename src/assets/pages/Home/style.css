@@ -1,4 +1,4 @@
-/* Global Styles */
+
 body {
     background-color: #ffffff;
     font-family: 'Arial', sans-serif;
@@ -16,7 +16,7 @@ body {
     color: #9f904d;
 }
 
-/* Map Section */
+
 .map-container {
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -24,7 +24,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Info Blocks */
+
 .info-container {
     padding: 20px;
     background-color: #fff;
@@ -54,7 +54,6 @@ body {
     color: #5f5619;
 }
 
-/* Card Styles */
 .card {
     margin: 10px;
     border: 2px solid #9f904d;
@@ -101,8 +100,68 @@ body {
     text-align: center;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
     .section-title {
         font-size: 24
     }}
+
+
+    .info-container-full {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+}
+
+.info-card {
+        max-width: 1000px;
+        width: 100%;
+}
+
+.info-block {
+    text-align: center;
+}
+
+.info-container-full {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.info-card {
+    width: 80%;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: #9f904d;
+}
+
+.info-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #9f904d;
+}
+
+.info-block {
+    margin-bottom: 20px;
+}
+
+.info-block h4 {
+    font-size: 18px;
+    color: #9f904d;
+    margin-bottom: 10px;
+}
+
+.info-block p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+}
+
+.info-block:last-child {
+    margin-bottom: 0;
+}
+
