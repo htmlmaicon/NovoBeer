@@ -1,93 +1,94 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../pages/Cadastro/style.css';
+import axios from 'axios';
 
-function CadastroProdutos() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate();
+const CadastroProduto = () => {
+    const [produto, setProduto] = useState({ nome: '', preco: '', descricao: '', imagem: null });
+    const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('As senhas não coincidem');
-      return;
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setProduto((prevState) => ({ ...prevState, [name]: value }));
+    };
 
-    try {
-      const response = await fetch('http://localhost:8080/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        alert(data.msg);
-        navigate('/login');
-      } else {
-        alert(data.msg);
-      }
-    } catch (error) {
-      console.error('Erro ao cadastrar:', error);
-    }
-  };
+    const handleImageChange = (e) => {
+        setProduto((prevState) => ({ ...prevState, imagem: e.target.files[0] }));
+    };
 
-  return (
-    <div className="page-container">
-      <div className="wrapper">
-        <div className="form-box login">
-          <h2>CADASTRE-SE</h2>
-          <form onSubmit={handleSubmit}>
-            <div className="input-box">
-              <input
-                type="text"
-                required
-                placeholder=" "
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <label>NOME</label>
-            </div>
-            <div className="input-box">
-              <input
-                type="email"
-                required
-                placeholder=" "
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <label>EMAIL</label>
-            </div>
-            <div className="input-box">
-              <input
-                type="password"
-                required
-                placeholder=" "
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <label>SENHA</label>
-            </div>
-            <div className="input-box">
-              <input
-                type="password"
-                required
-                placeholder=" "
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              <label>REPETIR SENHA</label>
-            </div>
-            <button type="submit" className="btn">
-              Cadastrar
-            </button>
-          </form>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const formData = new FormData();
+        formData.append('nome', produto.nome);
+        formData.append('preco', produto.preco);
+        formData.append('descricao', produto.descricao);
+        formData.append('imagem', produto.imagem);
+
+        console.log('Dados enviados para o backend:', {
+            nome: produto.nome,
+            preco: produto.preco,
+            descricao: produto.descricao,
+            imagem: produto.imagem,
+        });
+
+        try {
+            const response = await axios.post('http://localhost:5000/api/produtos/create', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            alert(response.data.mensagem);
+            setProduto({ nome: '', preco: '', descricao: '', imagem: null });
+        } catch (error) {
+            console.error('Erro ao cadastrar produto:', error);
+            alert('Erro ao cadastrar produto: ' + error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div style={{ maxWidth: '500px', margin: 'auto', padding: '20px' }}>
+            <h2>Cadastro de Produto</h2>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Nome:</label>
+                    <input
+                        type="text"
+                        name="nome"
+                        value={produto.nome}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Preço:</label>
+                    <input
+                        type="number"
+                        name="preco"
+                        value={produto.preco}
+                        onChange={handleChange}
+                        step="0.01"
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Descrição:</label>
+                    <textarea
+                        name="descricao"
+                        value={produto.descricao}
+                        onChange={handleChange}
+                        required
+                    ></textarea>
+                </div>
+                <div>
+                    <label>Imagem:</label>
+                    <input type="file" accept="image/*" onChange={handleImageChange} required />
+                </div>
+                <button type="submit" disabled={loading}>
+                    {loading ? 'Cadastrando...' : 'Cadastrar Produto'}
+                </button>
+            </form>
         </div>
-      </div>
-    </div>
-  );
-}
+    );
+};
 
-export default CadastroProdutos;
+export default CadastroProduto;

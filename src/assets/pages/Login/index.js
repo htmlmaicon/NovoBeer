@@ -1,88 +1,49 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { auth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from '../../services/firebaseconnection';
-import '../../pages/Login/style.css';
-import Voltar from '../../components/voltar';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebaseconnection"; // Arquivo de configuração do Firebase
 
-function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            setMessage('Usuário logado com sucesso!');
-            setTimeout(() => {
-                setMessage('');
-                navigate('/Home');
-            }, 2000);
-        } catch (error) {
-            setMessage('Erro ao logar: ' + error.message);
-        }
-    };
-
-    const handleGoogleLogin = async () => {
-        const provider = new GoogleAuthProvider();
-
-        try {
-            await signInWithPopup(auth, provider);
-            setMessage('Login com Google realizado com sucesso!');
-            setTimeout(() => {
-                setMessage('');
-                navigate('/Home');
-            }, 2000);
-        } catch (error) {
-            setMessage('Erro ao logar com Google: ' + error.message);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const token = await userCredential.user.getIdToken();
+            localStorage.setItem("token", token);
+            navigate("/home");
+        } catch (err) {
+            setError("Erro ao fazer login. Verifique suas credenciais.");
         }
     };
 
     return (
-        <div className="page-container">.
-            <div className="wrapper">
-                <div className="form-box login">
-                <Voltar/>
-                    <h2>LOGIN</h2>
-                    <form onSubmit={handleLogin}>
-                        <div className="input-box">
-                            <input
-                                type="email"
-                                required
-                                placeholder=" "
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <label>EMAIL</label>
-                        </div>
-                        <div className="input-box">
-                            <input
-                                type="password"
-                                required
-                                placeholder=" "
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                            <label>SENHA</label>
-                        </div>
-                        <button type="submit" className="btn">LOGIN</button>
-                    </form>
-
-                    <div className="google-login">
-                        <button onClick={handleGoogleLogin} className="btn-google">Login com Google</button>
-                    </div>
-
-                    {message && <p className="message">{message}</p>}
-
-                    <div className="login-register">
-                        <p>Não está cadastrado? <Link to="/cadastro" className="nav-link nav-link-custom">Cadastrar-se</Link></p>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}>
+                <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">Entrar</button>
+            </form>
+            {error && <p>{error}</p>}
         </div>
     );
-}
+};
 
 export default Login;

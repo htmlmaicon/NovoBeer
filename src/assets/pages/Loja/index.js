@@ -4,29 +4,35 @@ import { getItem, setItem } from '../../services/local';
 import { Link } from 'react-router-dom';
 import './style.css';
 import Voltar from '../../components/voltar';
+import { db } from '../../services/firebaseconnection';
+import { collection, getDocs } from 'firebase/firestore';
 
 const Store = () => {
-    const [data, setData] = useState([]);
-    const [cart, setCart] = useState(getItem('carrinhoYT') || []);
-    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]); // Produtos
+    const [cart, setCart] = useState(getItem('carrinhoYT') || []); // Carrinho local
+    const [loading, setLoading] = useState(true); // Status de carregamento
 
+    // Buscar produtos no Firestore
     useEffect(() => {
-        const fetchApi = async () => {
+        const fetchProducts = async () => {
             try {
-                const url = '/api/sites/MLB/search?q=cerveja';
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('API request failed');
-                const objJson = await response.json();
-                setData(objJson.results);
+                const productCollection = collection(db, 'produtos'); // Coleção no Firestore
+                const productSnapshot = await getDocs(productCollection); // Buscar documentos
+                const productList = productSnapshot.docs.map((doc) => ({
+                    id: doc.id, // ID do documento
+                    ...doc.data(), // Dados do documento
+                }));
+                setData(productList); // Atualizar estado com produtos
             } catch (error) {
-                console.error('Erro ao buscar dados:', error);
+                console.error('Erro ao buscar produtos do Firestore:', error);
             } finally {
-                setLoading(false);
+                setLoading(false); // Finalizar carregamento
             }
         };
-        fetchApi();
+        fetchProducts();
     }, []);
 
+    // Adicionar ou remover do carrinho
     const handleClick = (obj) => {
         const element = cart.find((e) => e.id === obj.id);
         if (element) {
@@ -43,13 +49,13 @@ const Store = () => {
     return (
         <div>
             <div className="store-header">
-                <Voltar></Voltar>
+                <Voltar />
                 <h1>Loja</h1>
-                <Link to='/Carrinho' className="button-cart">
+                <Link to="/Carrinho" className="button-cart">
                     Carrinho ({cart.length})
                 </Link>
-                <Link to='/CadastroProdutos' className="button-cart">
-                    Cadastrar Novo Produto 
+                <Link to="/Cadastroprodutos" className="button-cart">
+                    Cadastrar Novo Produto
                 </Link>
             </div>
             {loading ? (
@@ -58,16 +64,17 @@ const Store = () => {
                 <div className="store-items">
                     {data.map((e) => (
                         <div key={e.id} className="store-item">
-                            <h4>{e.title}</h4>
-                            <img src={e.thumbnail} alt={e.title} />
-                            <h4>R$ {e.price}</h4>
+                            <h4>{e.nome}</h4>
+                            <img src={e.imagemUrl} alt={e.nome} />
+                            <h4>R$ {(e.preco / 100).toFixed(2)}</h4> {/* Ajuste para valores monetários */}
+                            <p>{e.descricao}</p>
                             <button onClick={() => handleClick(e)}>
                                 {cart.some((itemCart) => itemCart.id === e.id) ? (
                                     <BsCartCheckFill />
                                 ) : (
                                     <BsCartPlusFill />
                                 )}
-                            </button> 
+                            </button>
                         </div>
                     ))}
                 </div>

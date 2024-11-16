@@ -18,7 +18,7 @@ function RoutesApp(){
                 <Route path="/" element={<Login/>}/>
                 <Route path="/carrinho" element={<Carrinho/>}/>
                 <Route path="/cadastro" element={<Cadastro/>}/>
-                <Route path="/CadastroProdutos" element={<CadastroProdutos/>}/>
+                <Route path="/cadastroProdutos" element={<CadastroProdutos/>}/>
                 <Route path="/produtos" element={<Produtos/>}/>
                 <Route path="/*" element={<Erro/>}/>
             </Routes>

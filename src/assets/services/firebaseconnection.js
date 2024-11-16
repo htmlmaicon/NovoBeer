@@ -1,22 +1,32 @@
-// firebaseconnection.js
-
+// Importação das dependências necessárias
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
-// Configuração do Firebase para o novo projeto
+// Configurações do Firebase (copie essas informações do console do Firebase)
 const firebaseConfig = {
-  apiKey: "AIzaSyDkCoNlzFAcGIVax7ElSGcqh1Yzy8f5M7Q",
-  authDomain: "berrmapper.firebaseapp.com",
-  projectId: "berrmapper",
-  storageBucket: "berrmapper.firebasestorage.app",
-  messagingSenderId: "543205407190",
-  appId: "1:543205407190:web:3a1bf8a8ac812138898c77",
-  measurementId: "G-KLZK4NME4V"
+    apiKey: "API_KEY",
+    authDomain: "PROJECT_ID.firebaseapp.com",
+    projectId: "PROJECT_ID",
+    storageBucket: "PROJECT_ID.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID",
+    measurementId: "MEASUREMENT_ID",
 };
 
-// Inicializa o Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
-// Exporte as funções e o objeto de autenticação
-export { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup };
+// Inicializar Firestore e Auth
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+export {
+    db, // Certifique-se de exportar o Firestore
+    auth,
+    provider,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signInWithPopup,
+};

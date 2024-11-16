@@ -1,31 +1,48 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../pages/Cadastro/style.css';
-import Voltar from '../../components/voltar';
+
 function Cadastro() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            setMessage('As senhas não coincidem.');
+            return;
+        }
+
+        if (password.length < 6) {
+            setMessage('A senha deve ter no mínimo 6 caracteres.');
+            return;
+        }
+
         try {
-            const response = await fetch('http://localhost:8080/auth/register', {
+            const response = await fetch('http://localhost:5000/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password, confirmpassword: confirmPassword })
+                body: JSON.stringify({ email, password, name }),
             });
+
             const data = await response.json();
+
             if (response.ok) {
-                alert(data.msg);
-                navigate('/login');
+                setMessage('Cadastro realizado com sucesso!');
+                setTimeout(() => {
+                    setMessage('');
+                    navigate('/login'); // Redireciona para a página de login
+                }, 2000);
             } else {
-                alert(data.msg);
+                setMessage('Erro: ' + (data.error || 'Erro desconhecido.'));
             }
         } catch (error) {
-            console.error('Erro ao cadastrar:', error);
+            setMessage('Erro ao cadastrar: ' + error.message);
         }
     };
 
@@ -33,27 +50,51 @@ function Cadastro() {
         <div className="page-container">
             <div className="wrapper">
                 <div className="form-box login">
-                    <Voltar/>
                     <h2>CADASTRE-SE</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="input-box">
-                            <input type="text" required placeholder=" " value={name} onChange={(e) => setName(e.target.value)} />
+                            <input
+                                type="text"
+                                placeholder=" "
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
                             <label>NOME</label>
                         </div>
                         <div className="input-box">
-                            <input type="email" required placeholder=" " value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input
+                                type="email"
+                                placeholder=" "
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
                             <label>EMAIL</label>
                         </div>
                         <div className="input-box">
-                            <input type="password" required placeholder=" " value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                placeholder=" "
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
                             <label>SENHA</label>
                         </div>
                         <div className="input-box">
-                            <input type="password" required placeholder=" " value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                placeholder=" "
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
                             <label>REPETIR SENHA</label>
                         </div>
                         <button type="submit" className="btn">Cadastrar</button>
                     </form>
+                    {message && <p className="message">{message}</p>}
                 </div>
             </div>
         </div>
