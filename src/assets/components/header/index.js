@@ -14,7 +14,6 @@ function Header() {
 
             <div className='meio'>
                 <Link className="Loja" to="/Loja">Comprar</Link>  
-                <Link className="login" to="/Login">Entrar</Link>  
                 <Link className="ajuda" to="/">Ajuda</Link>
             </div>
         </header>
