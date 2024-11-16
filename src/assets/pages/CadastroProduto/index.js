@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../pages/Cadastro/style.css';
 
-function Cadastro() {
+function CadastroProdutos() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -90,4 +90,4 @@ function Cadastro() {
   );
 }
 
-export default Cadastro;
+export default CadastroProdutos;

@@ -48,7 +48,7 @@ const Store = () => {
                 <Link to='/Carrinho' className="button-cart">
                     Carrinho ({cart.length})
                 </Link>
-                <Link to='/Cadastroprodutos' className="button-cart">
+                <Link to='/CadastroProdutos' className="button-cart">
                     Cadastrar Novo Produto 
                 </Link>
             </div>
