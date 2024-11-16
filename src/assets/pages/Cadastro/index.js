@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../pages/Cadastro/style.css';
-
+import Voltar from '../../components/voltar';
 function Cadastro() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -33,6 +33,7 @@ function Cadastro() {
         <div className="page-container">
             <div className="wrapper">
                 <div className="form-box login">
+                    <Voltar/>
                     <h2>CADASTRE-SE</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="input-box">

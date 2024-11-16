@@ -3,6 +3,7 @@ import { BsCartPlusFill, BsCartCheckFill } from 'react-icons/bs';
 import { getItem, setItem } from '../../services/local';
 import { Link } from 'react-router-dom';
 import './style.css';
+import Voltar from '../../components/voltar';
 
 const Store = () => {
     const [data, setData] = useState([]);
@@ -42,6 +43,7 @@ const Store = () => {
     return (
         <div>
             <div className="store-header">
+                <Voltar></Voltar>
                 <h1>Loja</h1>
                 <Link to='/Carrinho' className="button-cart">
                     Carrinho ({cart.length})

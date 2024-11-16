@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { getItem, setItem } from '../../services/local';
 import { BsCartDash } from "react-icons/bs";
-import "./stylle.css";
-import Voltar from '../../componsts/voltar/index.js';
+import "./style.css";
+import Voltar from '../../components/voltar/index.js';
 
 const Carrinho = () => {
     const [data, setData] = useState(getItem('carrinhoYT') || []);

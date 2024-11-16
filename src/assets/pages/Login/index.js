@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../pages/Login/style.css';
+import Voltar from '../../components/voltar';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -29,9 +30,10 @@ function Login() {
     };
 
     return (
-        <div className="page-container">
+        <div className="page-container">.
             <div className="wrapper">
                 <div className="form-box login">
+                <Voltar/>
                     <h2>LOGIN</h2>
                     <form onSubmit={handleSubmit}>
                         <div className="input-box">

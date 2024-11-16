@@ -1,33 +1,43 @@
-.wrapper{
+/* Ajuste da wrapper */
+.wrapper {
     width: 440px;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.3); /* Mantém o fundo claro com transparência */
     border: 2px solid rgba(61, 2, 2, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0,0,0,.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.3); 
+    background: linear-gradient(135deg, #E0AC5E, #E0BC5E); /* Gradiente de fundo */
 }
-.form-box{
+
+/* Ajuste da caixa de formulário */
+.form-box {
     width: 100%;
     padding: 40px;
+    background: rgba(255, 255, 255, 0.8); /* Fundo semitransparente */
+    border-radius: 15px; /* Bordas arredondadas */
 }
-.form-box h2{
+
+/* Título */
+.form-box h2 {
     font-size: 2rem;
     color: #101010;
     text-align: center;
 }
-.input-box{
+
+/* Caixa de entrada */
+.input-box {
     position: relative;
     width: 100%;
     height: 50px;
-    border-bottom: 2px solid #101010;
-    margin: 30px 0 ;
+    border-bottom: 2px solid #E0AC5E; /* Cor dourada suave */
+    margin: 30px 0;
 }
-.input-box label{
+
+.input-box label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -38,14 +48,16 @@
     pointer-events: none;
     transition: 0.5s;
 }
+
 .input-box input:focus + label,
 .input-box input:not(:placeholder-shown) + label {
     top: -5px;
     left: 5px;
-    color: #101010;
+    color: #E0AC5E; /* Cor dourada suave quando o campo está em foco */
     font-size: 0.8em;
 }
-.input-box input{
+
+.input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -56,14 +68,17 @@
     font-weight: 600;
     padding: 0 35px 0 5px;
 }
-.input-box .icon{
+
+.input-box .icon {
     position: absolute;
     right: 8px;
     font-size: 1.2em;
     color: #101010;
     line-height: 57px;
 }
-.remember-forgot{
+
+/* Estilo para a seção de lembrar/esquecer */
+.remember-forgot {
     font-size: .9rem;
     color: #101010;
     font-weight: 500;
@@ -71,21 +86,26 @@
     display: flex;
     justify-content: space-between;
 }
-.remember-forgot label input{
-    accent-color: #101010;
+
+.remember-forgot label input {
+    accent-color: #E0AC5E; /* Cor dourada suave para o checkbox */
     margin-right: 3px;
 }
-.remember-forgot a{
-    color: #101010;
+
+.remember-forgot a {
+    color: #E0AC5E; /* Cor dourada suave para os links */
     text-decoration: none;
 }
-.remember-forgot a:hover{
+
+.remember-forgot a:hover {
     text-decoration: underline;
 }
-.btn{
+
+/* Botão de login */
+.btn {
     width: 100%;
-    height: 45px ;
-    background: #101010;
+    height: 45px;
+    background: #E0AC5E; /* Cor de fundo do botão */
     border: none;
     outline: none;
     border-radius: 6px;
@@ -94,25 +114,36 @@
     color: #fff;
     font-weight: 500;
 }
+
+.btn:hover {
+    background: #E0BC5E; /* Cor de fundo do botão quando hover */
+}
+
+/* Seção de login/registro */
 .login-register {
     text-align: center;
 }
+
 .login-register p {
     color: #101010;
     font-weight: 500;
 }
+
 .login-register a {
-    color: #101010;
+    color: #E0AC5E; /* Cor dourada suave para os links */
     text-decoration: none;
     font-weight: 600;
 }
+
 .login-register a:hover {
     text-decoration: underline;
 }
 
+/* Ajuste para a página */
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: linear-gradient(135deg, #E6D099, #E0DB5E); /* Gradiente suave de fundo */
 }

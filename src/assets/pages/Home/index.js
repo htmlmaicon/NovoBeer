@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../componsts/header';
-import Footer from '../../componsts/footer';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';

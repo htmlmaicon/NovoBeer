@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './stylle.css';  
+import './style.css';  
 import logo from '../../imagens/Beer Mapper.svg';
 
 function Header() {
